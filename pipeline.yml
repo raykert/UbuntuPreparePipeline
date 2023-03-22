@@ -11,10 +11,6 @@ pool:
 
 # Pasos del pipeline
 steps:
-- script: |
-    sudo apt-get update
-    sudo apt-get -y upgrade
-  displayName: 'Actualización del sistema'
 
 - script: |
     sudo apt-get -y install docker.io
