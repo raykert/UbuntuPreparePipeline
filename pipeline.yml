@@ -35,10 +35,10 @@ steps:
   displayName: 'Instalación de Node.js'
 
 - script: |
-    wget https://packages.microsoft.com/config/ubuntu/21.10/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
-    sudo dpkg -i packages-microsoft-prod.deb
+    sudo apt-get install -y dotnet-sdk-7.0
+    sudo apt-get install -y aspnetcore-runtime-7.0
+    sudo apt-get install -y dotnet-runtime-7.0
     sudo apt-get update
-    sudo apt-get -y install dotnet-sdk-6.0
   displayName: 'Instalación de .NET SDK'
 
 - script: |
