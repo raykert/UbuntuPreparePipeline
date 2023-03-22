@@ -7,7 +7,7 @@ trigger:
 
 # Pool de agentes
 pool:
-  name: ubuntu-test
+  name: Self-Hosted-Ubuntu-Agent
 
 # Pasos del pipeline
 steps:
