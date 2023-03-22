@@ -1,0 +1,66 @@
+# Nombre del pipeline
+name: Instalación de software
+
+# Trigger de ejecución
+trigger:
+- main
+
+# Pool de agentes
+pool:
+  name: ubuntu-test
+
+# Pasos del pipeline
+steps:
+- script: |
+    sudo apt-get update
+    sudo apt-get -y upgrade
+  displayName: 'Actualización del sistema'
+
+- script: |
+    sudo apt-get -y install docker.io
+  displayName: 'Instalación de Docker'
+
+- script: |
+    sudo apt-get -y install git
+  displayName: 'Instalación de Git'
+
+- script: |
+    sudo apt-get -y install openjdk-17-jdk
+    sudo apt-get -y install openjdk-17-jre
+  displayName: 'Instalación de Java'
+
+- script: |
+    curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+    sudo apt-get -y install nodejs
+  displayName: 'Instalación de Node.js'
+
+- script: |
+    wget https://packages.microsoft.com/config/ubuntu/21.10/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+    sudo dpkg -i packages-microsoft-prod.deb
+    sudo apt-get update
+    sudo apt-get -y install dotnet-sdk-6.0
+  displayName: 'Instalación de .NET SDK'
+
+- script: |
+    curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+    sudo install minikube-linux-amd64 /usr/local/bin/minikube
+    sudo apt-get -y install conntrack
+    sudo minikube start --vm-driver=none
+    sudo chown -R $USER $HOME/.kube $HOME/.minikube
+  displayName: 'Instalación de Minikube y Kubernetes'
+
+- script: |
+    sudo curl -L https://github.com/kubernetes-sigs/kustomize/releases/download/v4.4.0/kustomize_v4.4.0_linux_amd64.tar.gz | tar xzf - -C /usr/local/bin
+  displayName: 'Instalación de Kustomize'
+
+- script: |
+    curl -fsSL https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | sudo bash -
+  displayName: 'Instalación de Helm'
+
+- script: |
+    wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-9.3.1.38581.zip
+    sudo apt-get -y install unzip
+    sudo unzip sonarqube-9.3.1.38581.zip -d /opt/
+    sudo mv /opt/sonarqube-9.3.1.38581 /opt/sonarqube
+    sudo chown -R sonarqube:sonarqube /opt/sonarqube
+  displayName: 'Instalación de Sonarqube'
